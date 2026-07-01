@@ -86,9 +86,6 @@ runners:
     args:
       - ./dogfood.mjs
     timeout_seconds: 10
-    sandbox:
-      profile: readonly
-      cwd_policy: skill-directory
     inputs:
       inbound_reply:
         type: json

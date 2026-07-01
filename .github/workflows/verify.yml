@@ -55,7 +55,7 @@ jobs:
         if: ${{ github.event.inputs.publish_registry == 'true' }}
         run: |
           set -euo pipefail
-          npx --yes @runxhq/cli@0.6.14 registry publish ./skills/reply-router/SKILL.md --registry https://api.runx.ai --owner jaasieldelgado131 --version sha-016598c4eb75 --upsert --json | tee evidence/publish.json
+          npx --yes @runxhq/cli@0.6.14 registry publish ./skills/reply-router/SKILL.md --registry https://api.runx.ai --version sha-016598c4eb75 --upsert --json | tee evidence/publish.json
 
       - name: Published registry dogfood
         if: ${{ github.event.inputs.registry_ref != '' }}

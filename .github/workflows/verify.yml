@@ -7,6 +7,10 @@ on:
         description: "Published ref, for example jaasieldelgado131/reply-router@sha-abcdef123456"
         required: false
         default: ""
+      publish_registry:
+        description: "Publish reply-router to the hosted registry from Linux before dogfood"
+        required: false
+        default: "false"
   push:
 
 jobs:
@@ -46,6 +50,12 @@ jobs:
         run: |
           set -euo pipefail
           npx --yes @runxhq/cli@0.6.14 harness ./skills/reply-router --json | tee evidence/harness.json
+
+      - name: Publish registry package
+        if: ${{ github.event.inputs.publish_registry == 'true' }}
+        run: |
+          set -euo pipefail
+          npx --yes @runxhq/cli@0.6.14 registry publish ./skills/reply-router/SKILL.md --registry https://api.runx.ai --owner jaasieldelgado131 --version sha-016598c4eb75 --upsert --json | tee evidence/publish.json
 
       - name: Published registry dogfood
         if: ${{ github.event.inputs.registry_ref != '' }}
